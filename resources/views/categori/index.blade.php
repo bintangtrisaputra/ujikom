@@ -2,43 +2,44 @@
 
 @section('content')
 <div class="container">
-    <h1>Daftar categori</h1>
-    <a href="#" class="btn btn-primary">Tambah categori</a>
-    <table class="table mt-3">
+    <h1 class="mb-3">Daftar Kategori</h1>
+
+    {{-- Flash message --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <a href="{{ route('kategori.create') }}" class="btn btn-primary mb-3">Tambah Kategori</a>
+
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>categori</th>
-
+                <th>Nama Kategori</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($categoris as $categori)
+            @forelse ($categoris as $categori)
                 <tr>
                     <td>{{ $categori->id }}</td>
                     <td>{{ $categori->nama_categori }}</td>
                     <td>
-                        <a href="{{ route('categori.edit', $categori->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('categori.destroy', $categori->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('kategori.edit', $categori->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('kategori.destroy', $categori->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
                         </form>
                     </td>
                 </tr>
-            @endforeach --}}
+            @empty
                 <tr>
-                    <td>1</td>
-                    <td>Horor</td>
-                    <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                        <form action="#" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                        </form>
-                    </td>
+                    <td colspan="3" class="text-center">Belum ada kategori.</td>
                 </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
